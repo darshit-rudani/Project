@@ -21,7 +21,7 @@ class Data {
 const Dummydata = const [
   Data(
     id:0,
-    title: 'The perfect product for skin type.',
+    title: 'The perfect product for your skin type.',
     imageUrl: 'image/1.png',
     title1: 'Find products that work for your skin.',
     icon: Icon(
@@ -37,7 +37,7 @@ const Dummydata = const [
     title1: 'Notifications and reminders just for you.',
     icon: Icon(
       Icons.alarm,
-      color: Colors.orange,
+      color: Colors.blue,
       size: 24.0,
     ),
   ),
@@ -48,7 +48,7 @@ const Dummydata = const [
     title1: 'Engage with others in the community.',
     icon: Icon(
       Icons.accessibility_new_outlined,
-      color: Colors.orange,
+      color: Colors.red,
       size: 24.0,
     ),
   ),
