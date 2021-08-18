@@ -22,12 +22,14 @@ class MyApp extends StatelessWidget {
 
 final List<Widget> imageSliders = Dummydata.map(
   (item) => Container(
-
+    constraints: new BoxConstraints.expand(
+      height: 200.0,
+    ),
     child: Stack(
       children: <Widget>[
         Image.asset(
           item.imageUrl,
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
           height: 500,
         ),
         new Positioned(
@@ -35,11 +37,8 @@ final List<Widget> imageSliders = Dummydata.map(
           bottom: -20.0,
           child: FloatingActionButton(
             backgroundColor: Colors.white,
-            child: Icon(
-              Icons.favorite_border,
-              color: Colors.orange,
-              size: 24.0,
-            ),
+            onPressed: () {  },
+            child: item.icon,
           ),
         ),
       ],
@@ -69,16 +68,14 @@ final List<Widget> textSlide = Dummydata.map(
 
 final List<Widget> textSlide2 = Dummydata.map(
   (item) => Container(
-    child: Container(
-      child: Stack(
-        children: <Widget>[
-          Center(
-            child: Text(
-              item.title1,
-            ),
+    child: Stack(
+      children: <Widget>[
+        Center(
+          child: Text(
+            item.title1,style: TextStyle(fontSize: 20),
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   ),
 ).toList();
@@ -93,6 +90,8 @@ class CarouselWithIndicatorDemo extends StatefulWidget {
 class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
+  final CarouselController _controller1 = CarouselController();
+  final CarouselController _controller2 = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -118,22 +117,22 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 50,
         ),
         Expanded(
           child: CarouselSlider(
             items: textSlide,
-            carouselController: _controller,
+            carouselController: _controller1,
             options: CarouselOptions(
               height: 450,
               scrollDirection: Axis.vertical,
               viewportFraction: 1.0,
               enlargeCenterPage: false,
               autoPlay: false,
-              onPageChanged: (index, reason) {
+              onPageChanged: (index1, reason) {
                 setState(
                   () {
-                    _current = index;
+                    _current = index1;
                   },
                 );
               },
@@ -143,17 +142,17 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
         Expanded(
           child: CarouselSlider(
             items: textSlide2,
-            carouselController: _controller,
+            carouselController: _controller2,
             options: CarouselOptions(
               height: 420,
               scrollDirection: Axis.vertical,
               viewportFraction: 1.0,
               enlargeCenterPage: false,
               autoPlay: false,
-              onPageChanged: (index, reason) {
+              onPageChanged: (index2, reason) {
                 setState(
                   () {
-                    _current = index;
+                    _current = index2;
                   },
                 );
               },
@@ -165,7 +164,11 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: Dummydata.asMap().entries.map((entry) {
               return GestureDetector(
-                onTap: () => _controller.animateToPage(entry.key),
+                onTap: () {
+                  _controller.animateToPage(entry.key);
+                  _controller1.animateToPage(entry.key);
+                  _controller2.animateToPage(entry.key);
+                },
                 child: Container(
                   width: 12.0,
                   height: 12.0,
@@ -183,7 +186,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
           ),
         ),
       ]),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
